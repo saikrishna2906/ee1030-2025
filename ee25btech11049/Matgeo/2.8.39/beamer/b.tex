@@ -239,29 +239,32 @@ double get_angle_between_lines() {
 \begin{frame}[fragile]
 \frametitle{Python Code through Shared Output}
 \begin{lstlisting}
+# Code by GVV Sharma
+# July 22, 2024
+# Released under GNU GPL
+# This script finds the angle between two lines by calling a standard C shared library.
+
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import ctypes
 import os
-
 # --- Load the C Shared Library using ctypes ---
 try:
     # Construct the full path to the library file, assuming it's in the same directory.
     lib_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'angle_calculator_lib.so')
+   angle_lib = ctypes.CDLL(lib_path)
 
-    angle_lib = ctypes.CDLL(lib_path)
-except OSError:
-    print("Error: 'angle_calculator_lib.so' not found.")
-    print("Please compile the C library by running this command in your terminal:")
     \end{lstlisting}
 \end{frame}  
 \begin{frame}[fragile]
 \frametitle{Python Code through Shared Output}
 \begin{lstlisting}
+except OSError:
+    print("Error: 'angle_calculator_lib.so' not found.")
+    print("Please compile the C library by running this command in your terminal:")
     print("gcc -shared -o angle_calculator_lib.so -fPIC angle_calculator_lib.c")
     exit()
-
 # --- Define the function signature from the C library ---
 # Tell ctypes that the function returns a C double. This is crucial for correctness.
 angle_lib.get_angle_between_lines.restype = ctypes.c_double
@@ -269,9 +272,7 @@ angle_lib.get_angle_between_lines.restype = ctypes.c_double
 # --- Call the C function ---
 angle_deg = angle_lib.get_angle_between_lines()
 angle_rad = np.deg2rad(angle_deg)
-
-
-# --- For Plotting Purposes (re-defining vectors in Python) ---
+# --- For Plotting Purposes (re-defining vectors in Python) --
 # Direction ratios
 d1_ratios = np.array([0, 1, -1])
 d2_ratios = np.array([1, 0, -1])
@@ -334,6 +335,12 @@ plt.show()
 \begin{frame}[fragile]
 \frametitle{Python Code }
 \begin{lstlisting}
+# Code by GVV Sharma
+# July 22, 2024
+# Released under GNU GPL
+# This script finds the angle between two lines whose direction cosines
+# are given by the equations:
+
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -345,17 +352,17 @@ d1_ratios = np.array([0, 1, -1])
 # Case 2 (m=0) gives direction ratios proportional to (1, 0, -1)
 d2_ratios = np.array([1, 0, -1])
 
+\end{lstlisting}
+\end{frame}  
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}
 print(f"Direction ratios for Line 1: {d1_ratios}")
 print(f"Direction ratios for Line 2: {d2_ratios}")
 print("-" * 30)
 
 # --- Calculate Direction Cosines ---
 # To get the direction cosines, we normalize the direction ratio vectors (divide by their magnitude).
-\end{lstlisting}
-\end{frame}  
-\begin{frame}[fragile]
-\frametitle{Python Code }
-\begin{lstlisting}
 norm_d1 = np.linalg.norm(d1_ratios)
 norm_d2 = np.linalg.norm(d2_ratios)
 
@@ -367,14 +374,15 @@ print(f"Direction cosines for Line 1: [{d1[0]:.4f}, {d1[1]:.4f}, {d1[2]:.4f}]")
 print(f"Direction cosines for Line 2: [{d2[0]:.4f}, {d2[1]:.4f}, {d2[2]:.4f}]")
 print("-" * 30)
 
-# --- Calculate the angle using the dot product of direction cosines ---
-# The dot product of two unit vectors (direction cosines) is the cosine of the angle between them.
-cos_theta = np.dot(d1, d2)
 \end{lstlisting}
 \end{frame}  
 \begin{frame}[fragile]
 \frametitle{Python Code }
 \begin{lstlisting}
+# --- Calculate the angle using the dot product of direction cosines ---
+# The dot product of two unit vectors (direction cosines) is the cosine of the angle between them.
+cos_theta = np.dot(d1, d2)
+
 # Calculate the angle in radians
 angle_rad = np.arccos(cos_theta)
 
@@ -386,24 +394,31 @@ print("-" * 30)
 print(f"The angle between the lines is {angle_rad:.4f} radians.")
 print(f"The angle between the lines is {angle_deg:.2f} degrees.")
 
+\end{lstlisting}
+\end{frame}  
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}
 # --- Plotting the vectors in 3D ---
 fig = plt.figure(figsize=(8, 8))
 ax = fig.add_subplot(111, projection='3d')
 
 # Origin point
 origin = [0, 0, 0]
-\end{lstlisting}
-\end{frame}  
-\begin{frame}[fragile]
-\frametitle{Python Code }
-\begin{lstlisting}
+print(f"The angle between the lines is {angle_rad:.4f} radians.")
+print(f"The angle between the lines is {angle_deg:.2f} degrees.")
+
 # Plot the direction cosine vectors (unit vectors) as arrows from the origin
 label1 = f'Line 1 DC: ({d1[0]:.2f}, {d1[1]:.2f}, {d1[2]:.2f})'
 label2 = f'Line 2 DC: ({d2[0]:.2f}, {d2[1]:.2f}, {d2[2]:.2f})'
 ax.quiver(*origin, *d1, color='r', label=label1)
 ax.quiver(*origin, *d2, color='b', label=label2)
 
-
+\end{lstlisting}
+\end{frame}  
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}
 # Set the plot limits to be consistent
 ax.set_xlim([-1.5, 1.5])
 ax.set_ylim([-1.5, 1.5])
@@ -415,11 +430,6 @@ ax.set_ylabel('Y axis')
 ax.set_zlabel('Z axis')
 ax.set_title('Visualization of the Two Lines in 3D')
 ax.legend()
-\end{lstlisting}
-\end{frame}  
-\begin{frame}[fragile]
-\frametitle{Python Code }
-\begin{lstlisting}
 ax.grid(True)
 
 # To make the aspect ratio equal
