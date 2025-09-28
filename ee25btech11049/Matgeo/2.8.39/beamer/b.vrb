@@ -1,0 +1,11 @@
+\frametitle{Python Code }
+\begin{lstlisting}
+ax.grid(True)
+
+# To make the aspect ratio equal
+ax.set_box_aspect([1,1,1])
+
+# Show the plot
+plt.show()
+
+\end{lstlisting}
