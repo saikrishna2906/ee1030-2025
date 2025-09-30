@@ -43,13 +43,13 @@
 \tikzstyle{input} = [coordinate]
 \tikzstyle{output} = [coordinate]
 
-
 \begin{document}
+
 
 \bibliographystyle{IEEEtran}
 \vspace{3cm}
 
-\title{2.10.77}
+\title{4.7.46}
 \author{EE25BTECH11049 - Sai Krishna Bakki}
  \maketitle
 % \newpage
@@ -64,45 +64,38 @@
 \numberwithin{equation}{enumi}
 \numberwithin{figure}{enumi}
 \renewcommand{\thetable}{\theenumi}
+\textbf{Question:}\\
+The equations of the lines passing through the point (1, 0) and at a distance $\frac{\sqrt{3}}{2}$ from the origin, are \\
 
-\textbf{Question}:\\
-The points $(-a, -b)$, $(0, 0)$, $(a, b)$ and $(a^2, ab)$ are
-\begin{enumerate}
-\item Collinear
-\item Vertices of a parallelogram
-\item Vertices of a rectangle
-\item None of these
-\end{enumerate}
-\solution \\
+\solution
 Given:
 \begin{align}
-\vec{A}=\myvec{-a\\-b},\vec{B}=\myvec{0\\0},\vec{C}=\myvec{a\\b},\vec{D}=\myvec{a^2\\ab}
+    \vec{A}=\myvec{1\\0},p=\frac{\sqrt{3}}{2}
 \end{align}
-Condition for the points to be vertices of a parallelogram is \\
+where p is the perpendicular distance from origin to line and $\vec{A}$ lies on the line.\\
+$\therefore$The equation of line in normal form:
 \begin{align}
-    \vec{B}-\vec{A}=\vec{C}-\vec{D}\\
-    \vec{B}-\vec{A}=\myvec{a\\b},\vec{C}-\vec{D}=\myvec{a-a^2\\b-ab}
+    \myvec{\cos\theta & \sin\theta}\vec{x}=p
 \end{align}
-But
+substituting $\vec{A}$ and p in line equation gives you:
 \begin{align}
-\vec{B}-\vec{A} \neq \vec{C}-\vec{D}
-\end{align} 
-If
-$\vec{B}-\vec{A} \neq \vec{C}-\vec{D}$ then the points cannot be vertices of a rectangle too because every rectangle is a specific type of parallelogram.
-
-Condition for the points to be collinear is
-\begin{align}
-    \text{rank}\myvec{\vec{B} - \vec{A} & &\vec{C} - \vec{D}} = 1\\
+    \myvec{\cos\theta & \sin\theta}\myvec{1\\0}=\frac{\sqrt{3}}{2}\\
 \end{align}
+we get
 \begin{align}
-    \text{rank}\myvec{a & a-a^2\\b & b-ab}
+    \cos\theta=\frac{\sqrt{3}}{2}\implies \theta=\frac{\pi}{6}\quad or \quad \frac{-\pi}{6}
 \end{align}
+Substituting $\theta=\frac{\pi}{6}\quad and \quad \frac{-\pi}{6}$ in $\brak{0.2}$,we get\\
+The equations of lines are:
 \begin{align}
-	\myvec{a &  a-a^2\\ b & b-ab} \xleftrightarrow[]{R_2 \rightarrow {\frac{-b}{a}R_1 + R_2}} \myvec{a & a-a^2 \\ 0 & 0}  
+    \myvec{\frac{\sqrt{3}}{2} & \frac{1}{2}}\vec{x}=\frac{\sqrt{3}}{2}\\
+    \myvec{\frac{\sqrt{3}}{2} & -\frac{1}{2}}\vec{x}=\frac{\sqrt{3}}{2}
 \end{align}
-The number of non zero rows in the row reduced matrix (also known as {\em echelon form}) is defined as the rank.\\
-For the above matrix, Rank is one.\\
-Therefore, we can conclude that four points are collinear.
+OR
+\begin{align}
+ \myvec{\sqrt{3} & 1}\vec{x}=\sqrt{3},
+    \myvec{\sqrt{3} & -1}\vec{x}=\sqrt{3}   
+\end{align}
 \newpage
  \begin{figure}
     \centering

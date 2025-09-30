@@ -43,13 +43,13 @@
 \tikzstyle{input} = [coordinate]
 \tikzstyle{output} = [coordinate]
 
-
 \begin{document}
+
 
 \bibliographystyle{IEEEtran}
 \vspace{3cm}
 
-\title{2.10.77}
+\title{4.3.39}
 \author{EE25BTECH11049 - Sai Krishna Bakki}
  \maketitle
 % \newpage
@@ -64,45 +64,21 @@
 \numberwithin{equation}{enumi}
 \numberwithin{figure}{enumi}
 \renewcommand{\thetable}{\theenumi}
-
-\textbf{Question}:\\
-The points $(-a, -b)$, $(0, 0)$, $(a, b)$ and $(a^2, ab)$ are
-\begin{enumerate}
-\item Collinear
-\item Vertices of a parallelogram
-\item Vertices of a rectangle
-\item None of these
-\end{enumerate}
-\solution \\
-Given:
+\textbf{Question:}\\
+If the point (3, 4) lies on the line 3y = ax + 7, find the value of a.\\
+\solution\\
+Given
 \begin{align}
-\vec{A}=\myvec{-a\\-b},\vec{B}=\myvec{0\\0},\vec{C}=\myvec{a\\b},\vec{D}=\myvec{a^2\\ab}
+    \vec{P}=\myvec{3\\4},\vec{x}=\myvec{x\\y}\\
+    \myvec{a & -3}\vec{x}=-7
 \end{align}
-Condition for the points to be vertices of a parallelogram is \\
+Since point (3,4) lies on the line, substitute (0.1) in (0.2),we get
 \begin{align}
-    \vec{B}-\vec{A}=\vec{C}-\vec{D}\\
-    \vec{B}-\vec{A}=\myvec{a\\b},\vec{C}-\vec{D}=\myvec{a-a^2\\b-ab}
+        \myvec{a & -3}\vec{P}=-7\\
+        \myvec{a & -3}\myvec{3\\4}=-7\ \\
+        3a-12=-7\implies a=\frac{5}{3}
 \end{align}
-But
-\begin{align}
-\vec{B}-\vec{A} \neq \vec{C}-\vec{D}
-\end{align} 
-If
-$\vec{B}-\vec{A} \neq \vec{C}-\vec{D}$ then the points cannot be vertices of a rectangle too because every rectangle is a specific type of parallelogram.
-
-Condition for the points to be collinear is
-\begin{align}
-    \text{rank}\myvec{\vec{B} - \vec{A} & &\vec{C} - \vec{D}} = 1\\
-\end{align}
-\begin{align}
-    \text{rank}\myvec{a & a-a^2\\b & b-ab}
-\end{align}
-\begin{align}
-	\myvec{a &  a-a^2\\ b & b-ab} \xleftrightarrow[]{R_2 \rightarrow {\frac{-b}{a}R_1 + R_2}} \myvec{a & a-a^2 \\ 0 & 0}  
-\end{align}
-The number of non zero rows in the row reduced matrix (also known as {\em echelon form}) is defined as the rank.\\
-For the above matrix, Rank is one.\\
-Therefore, we can conclude that four points are collinear.
+$\therefore$ The value of a is \textbf{$\frac{5}{3}$}.
 \newpage
  \begin{figure}
     \centering
