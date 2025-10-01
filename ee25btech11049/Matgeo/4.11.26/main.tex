@@ -25,7 +25,7 @@
 \usepackage[breaklinks=true]{hyperref}
 \usepackage{tkz-euclide} 
 \usepackage{listings}
-\usepackage{gvv}                                        
+% \usepackage{gvv}                                        
 \def\inputGnumericTable{}                                 
 \usepackage[latin1]{inputenc}                                
 \usepackage{color}                                            
@@ -36,34 +36,14 @@
 \usepackage{hhline}                                           
 \usepackage{ifthen}                                           
 \usepackage{lscape}
-\usepackage{circuitikz}
-\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
-    text width=4em, text centered, rounded corners, minimum height=3em]
-\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
-\tikzstyle{input} = [coordinate]
-\tikzstyle{output} = [coordinate]
-
 \begin{document}
-
 
 \bibliographystyle{IEEEtran}
 \vspace{3cm}
 
 \title{4.11.26}
 \author{EE25BTECH11049 - Sai Krishna Bakki}
- \maketitle
-% \newpage
-% \bigskip
-{\let\newpage\relax\maketitle}
-
-\renewcommand{\thefigure}{\theenumi}
-\renewcommand{\thetable}{\theenumi}
-\setlength{\intextsep}{10pt} % Space between text and floats
-
-
-\numberwithin{equation}{enumi}
-\numberwithin{figure}{enumi}
-\renewcommand{\thetable}{\theenumi}
+\maketitle
 \textbf{Question:}\\
 Find the area bounded by the curves $y = |x - 1|$ and $y = 1$.\\
 \textbf{Solution}
@@ -75,33 +55,40 @@ We express the three boundary lines in the vector form $\vec{n}^T \vec{x} = c$, 
     \vec{n_3}=\myvec{0\\1},c_1=1\implies \myvec{0 &1}\vec{x}=1
 \end{align}
 
-\subsection*{2. Finding Vertices with Matrix Inversion}
-The intersection of any two lines is the solution to a system of linear equations, which we solve using matrix inversion.
+\subsection*{2. Finding Vertices with Augmented Matrices}
+The intersection of any two lines is the solution to a system of linear equations, which we solve using Augmented Matrices.
 
 \subsubsection*{Vertex A (Intersection of $L_1$ and $L_2$)}
-The system is $\myvec{1 & -1 \\ 1 & 1} \myvec{x \\ y} = \myvec{1 \\ 1}$. The solution is $\vec{x} = \vec{N}_{12}^{-1}\vec{c}_{12}$.
-\begin{align}  
-\vec{A} &= \myvec{1 & -1 \\ 1 & 1}^{-1} \myvec{1 \\ 1} \\
-&= \frac{1}{1(1) - (-1)(1)} \myvec{1 & 1 \\ -1 & 1} \myvec{1 \\ 1} \\
-&= \frac{1}{2} \myvec{1(1) + 1(1) \\ -1(1) + 1(1)} = \frac{1}{2} \myvec{2 \\ 0} = \myvec{1 \\ 0}
-\end{align}  
+\begin{align}
+   \augvec{2}{1}{1 & -1 &1 \\1 & 1 & 1}\xleftrightarrow[]{R_2\rightarrow R_2-R_1}\augvec{2}{1}{1 & -1 & 1\\0 & 2 & 0}
+\end{align}
+\begin{align}
+   \augvec{2}{1}{1 & -1 & 1\\0 & 2 & 0}\xleftrightarrow[]{R_2\rightarrow \frac{1}{2}R_2}\augvec{2}{1}{1 & -1 & 1\\0 & 1 & 0}
+\end{align}
+\begin{align}
+   \augvec{2}{1}{1 & -1 & 1\\0 & 1 & 0}\xleftrightarrow[]{R_1\rightarrow R_1+R_2}\augvec{2}{1}{1 & 0 & 1\\0 & 1 & 0}
+\end{align}
+\begin{align}
+    \vec{A}=\myvec{1\\0}
+\end{align}
 
 \subsubsection*{Vertex B (Intersection of $L_1$ and $L_3$)}
-The system is $\myvec{1 & -1 \\ 0 & 1} \myvec{x \\ y} = \myvec{1 \\ 1}$. The solution is $\vec{x} = \vec{N}_{13}^{-1}\vec{c}_{13}$.
-\begin{align}  
-\vec{B} &= \myvec{1 & -1 \\ 0 & 1}^{-1} \myvec{1 \\ 1} \\
-&= \frac{1}{1(1) - (-1)(0)} \myvec{1 & 1 \\ 0 & 1} \myvec{1 \\ 1} \\
-&= \myvec{1(1) + 1(1) \\ 0(1) + 1(1)} = \myvec{2 \\ 1}
-\end{align}  
+\begin{align}
+   \augvec{2}{1}{1 & -1 &1 \\0 & 1 & 1}\xleftrightarrow[]{R_1\rightarrow R_1+R_2}\augvec{2}{1}{1 & 0 & 2\\0 & 1 & 1}
+\end{align}
 
+\begin{align}
+    \vec{B}=\myvec{2\\1}
+\end{align}
 \subsubsection*{Vertex C (Intersection of $L_2$ and $L_3$)}
-The system is $\myvec{1 & 1 \\ 0 & 1} \myvec{x \\ y} = \myvec{1 \\ 1}$. The solution is $\vec{x} = \vec{N}_{23}^{-1}\vec{c}_{23}$.
-\begin{align}  
-\vec{C} &= \myvec{1 & 1 \\ 0 & 1}^{-1} \myvec{1 \\ 1} \\
-&= \frac{1}{1(1) - 1(0)} \myvec{1 & -1 \\ 0 & 1} \myvec{1 \\ 1} \\
-&= \myvec{1(1) - 1(1) \\ 0(1) + 1(1)} = \myvec{0 \\ 1}
-\end{align}  
-The vertices are $\vec{A}=(1,0)$, $\vec{B}=(2,1)$, and $\vec{C}=(0,1)$.
+\begin{align}
+   \augvec{2}{1}{1 & 1 &1 \\0 & 1 & 1}\xleftrightarrow[]{R_1\rightarrow R_1-R_2}\augvec{2}{1}{1 & 0 & 0\\0 & 1 & 1}
+\end{align}
+
+\begin{align}
+    \vec{C}=\myvec{0\\1}
+\end{align}
+The vertices are $\vec{A}=\myvec{1\\0}$, $\vec{B}=\myvec{2\\1}$, and $\vec{C}=\myvec{0\\1}$.
 
 \subsection*{3. Calculating Area with Vector Determinant}
 We form two vectors representing two sides of the triangle, $\vec{AB}$ and $\vec{AC}$.
