@@ -1,0 +1,8 @@
+\frametitle{Python Code}
+\begin{lstlisting}
+import sympy as sp
+
+A = sp.Matrix([[5, -1, 4], [2, 3, 5],[5, -2, 6]])
+A_inv = A.inv()
+sp.pprint(A_inv)
+\end{lstlisting}
