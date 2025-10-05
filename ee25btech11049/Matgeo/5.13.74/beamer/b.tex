@@ -1,0 +1,269 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{cancel}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.13.74}
+\date{}
+%\subtitle{A short story}
+
+\author % (optional)
+{Sai Krishna Bakki - EE25BTECH11049}
+
+\begin{document}
+\frame{\titlepage}
+\begin{frame}{Question}
+The trace of a square matrix is defined to be the sum of its diagonal entries. If $\vec{A}$ is a 2 x 2 matrix, such that the trace of $\vec{A}$ is 3 and the trace of $\vec{A}^{3}$ is -18, then the value of the determinant of $\vec{A}$ is
+\end{frame}
+\begin{frame}{Theoretical Solution}
+    Given:
+\begin{align}
+    \operatorname{tr}(\vec{A})&=3\\
+    \operatorname{tr}(\vec{A^3})&=-18\\
+    \operatorname{tr}(\vec{I})&=2
+\end{align}
+Using Cayley-Hamilton Theorem, we know that
+\begin{align}
+    \mydet{\vec{A}-\lambda\vec{I}}&=0,
+    \text{for $\lambda=\vec{A}$}
+\end{align}
+For a 2 x 2 matrix $\vec{A}$, the characteristic equation is:
+\begin{align}
+    \lambda^{2}-\operatorname{tr}(\vec{A})\lambda+\mydet{\vec{A}}&=0
+\end{align}
+According to the theorem, the matrix $\vec{A}$ itself will satisfy this equation:
+\begin{align}
+    \vec{A^2}-\operatorname{tr}(\vec{A})\vec{A}+\mydet{\vec{A}}\vec{I}&=0\\
+        \vec{A^2}-3\vec{A}+\mydet{\vec{A}}\vec{I}&=0\\
+        \vec{A^2}&=3\vec{A}-\mydet{\vec{A}}\vec{I}
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+To find $\vec{A^3}$, we multiply the equation by $\vec{A}$
+\begin{align}
+    % \vec{A^3}=\vec{A}\brak{3\vec{A}-\mydet{\vec{A}}\vec{I}}\\
+    \vec{A^3}=3\vec{A^2}-\mydet{\vec{A}}\vec{A}
+\end{align}
+Now, substitute the expression for $\vec{A^2}$ into the equation for $\vec{A^3}$:
+\begin{align}
+\vec{A^3}=3\brak{3\vec{A}-\mydet{\vec{A}}\vec{I}}-\mydet{\vec{A}}\vec{A}\\
+\vec{A^3}=\brak{9-\mydet{\vec{A}}}\vec{A}-3\mydet{\vec{A}}\vec{I}
+\end{align}
+Let's take the trace of both sides of this equation. Using the linearity properties of the trace 
+\begin{align}
+    \operatorname{tr}(\vec{X}+\vec{Y})=\operatorname{tr}(\vec{X})+\operatorname{tr}(\vec{Y})\\
+    \operatorname{tr}(k\vec{X})=k\operatorname{tr}(\vec{X})\\
+    \operatorname{tr}(\vec{A^3})=\operatorname{tr}\brak{\brak{9-\mydet{\vec{A}}}\vec{A}-3\mydet{\vec{A}}\vec{I}}\\
+    \operatorname{tr}(\vec{A^3})=\brak{9-\mydet{\vec{A}}}\operatorname{tr}(\vec{A})-3\mydet{\vec{A}}\operatorname{tr}(\vec{I})
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Substituting equations (0.1) and (0.2) in above equation, we get
+\begin{align}
+    -18=\brak{9-\mydet{\vec{A}}}(3)-3\mydet{\vec{A}}(2)\\
+    \therefore \mydet{\vec{A}}=5
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    #include <math.h>
+
+/*
+    This function calculates the determinant of a 2x2 matrix given the
+    trace of the matrix (trace_A) and the trace of its cube (trace_A3).
+
+    The formula is derived from the relationship between the trace,
+    determinant, and eigenvalues of a matrix.
+
+    For Windows DLL compilation, __declspec(dllexport) is used to
+    export the function, making it visible to other programs. For
+    Linux/macOS, this is not strictly necessary when compiling with -fPIC.
+*/
+#if defined(_WIN32)
+    #define DLLEXPORT __declspec(dllexport)
+    \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#else
+    #define DLLEXPORT
+#endif
+
+DLLEXPORT double solve_determinant_2x2(double trace_A, double trace_A3) {
+    // Ensure we don't divide by zero if trace_A is 0.
+    if (trace_A == 0) {
+        return 0.0; // Or handle as an error, e.g., return NAN.
+    }
+    
+    // Formula: det(A) = (tr(A)^3 - tr(A^3)) / (3 * tr(A))
+    return (pow(trace_A, 3) - trace_A3) / (3.0 * trace_A);
+}
+    \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+    \frametitle{Python Code Through Shared Output}
+    \begin{lstlisting}
+    import ctypes
+import os
+
+# Define the name of the shared library based on the operating system
+if os.name == 'nt': # Windows
+    lib_name = 'solver.dll'
+else: # Linux, macOS, etc.
+    lib_name = 'solver.so'
+
+# Construct the full path to the library file in the current directory
+lib_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), lib_name)
+
+try:
+    # 1. Load the shared library
+    solver_lib = ctypes.CDLL(lib_path)
+except OSError as e:
+    \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+    \frametitle{Python Code Through Shared Output}
+    \begin{lstlisting}
+    print(f"Error: Could not load the shared library '{lib_name}'.")
+    print("Please make sure you have compiled the C code first.")
+    print(f"Details: {e}")
+    exit()
+
+# 2. Define the function signature to match the C code
+#    Specify the argument types (argtypes)
+solver_lib.solve_determinant_2x2.argtypes = [ctypes.c_double, ctypes.c_double]
+#    Specify the return type (restype)
+solver_lib.solve_determinant_2x2.restype = ctypes.c_double
+
+# 3. Define the input values from the problem
+trace_A = 3.0
+trace_A3 = -18.0
+
+# 4. Call the C function from Python
+    \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+    \frametitle{Python Code Through Shared Output}
+    \begin{lstlisting}
+#    Python floats will be automatically converted to ctypes.c_double
+determinant = solver_lib.solve_determinant_2x2(trace_A, trace_A3)
+
+# 5. Print the result
+print("--- Calling C function from Python using ctypes ---")
+print(f"Given tr(A) = {trace_A}")
+print(f"Given tr(A^3) = {trace_A3}")
+print("-" * 25)
+print(f"The calculated determinant of A is: {determinant}")
+    \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import sympy
+
+# 1. Define the unknown variable and knowns as symbolic objects
+# d represents the determinant of A, which we want to find.
+d = sympy.Symbol('d')
+
+# tr_A is the trace of A.
+tr_A = 3
+# tr_A3 is the trace of A^3.
+tr_A3 = -18
+# For a 2x2 matrix, the trace of the identity matrix (I) is 2.
+tr_I = 2
+
+# 2. Set up the equation based on the Cayley-Hamilton theorem
+# The derived formula is: tr(A^3) = (tr(A)**2 - d)*tr(A) - d*tr(A)*tr(I)
+    \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# We create an equation object that is equal to zero.
+equation = sympy.Eq((tr_A**2 - d)*tr_A - d*tr_A*tr_I, tr_A3)
+
+# 3. Solve the equation for our unknown variable 'd'
+# sympy.solve takes the equation and the variable to solve for.
+solution = sympy.solve(equation, d)
+
+# 4. Print the result
+# The solution is a list, so we print the first element.
+print(f"The equation to solve is: {equation}")
+print(f"The calculated determinant of A is: {solution[0]}")
+\end{lstlisting}
+\end{frame}
+\end{document}
