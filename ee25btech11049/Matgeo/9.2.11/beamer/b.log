@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.8.15)  3 OCT 2025 16:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.8.15)  9 OCT 2025 18:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1475,13 +1475,13 @@ LaTeX Font Info:    Trying to load font information for OT1+lmss on input line
 
 (/usr/share/texmf/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-No file b.aux.
+) (./b.aux)
 \openout1 = `b.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 85.
 LaTeX Font Info:    Trying to load font information for OML+txmi on input line 
 85.
+
 (/usr/share/texlive/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
@@ -1578,6 +1578,8 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package hyperref Info: Link coloring OFF on input line 85.
+
+(./b.out) (./b.out)
 \@outlinefile=\write6
 \openout6 = `b.out'.
 
@@ -1653,9 +1655,7 @@ ry-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
 \c@lstlisting=\count416
-
-No file b.nav.
-
+ (./b.nav)
 
 [1
 
@@ -2188,7 +2188,7 @@ Overfull \vbox (13.72923pt too high) detected at line 418
 [18
 
 ]
-<figs/Figure_1.png, id=544, 462.528pt x 346.896pt>
+<figs/Figure_1.png, id=545, 462.528pt x 346.896pt>
 File: figs/Figure_1.png Graphic file (type png)
 <use figs/Figure_1.png>
 Package pdftex.def Info: figs/Figure_1.png  used on input line 426.
@@ -2207,29 +2207,22 @@ Package pdftex.def Info: figs/Figure_1.png  used on input line 426.
 \tf@snm=\write9
 \openout9 = `b.snm'.
 
+runsystem(latexminted cleantemp  --timestamp 20251009182709 92EB5FFEE6AE2FEC3AD
+71C777531578F)...executed safely (allowed).
+
  (./b.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2020/03/25>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `b.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `b.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+Package rerunfilecheck Info: File `b.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 59518 strings out of 473197
- 1438691 string characters out of 5718605
+ 59572 strings out of 473197
+ 1439128 string characters out of 5718605
  2583106 words of memory out of 5000000
- 81732 multiletter control sequences out of 15000+600000
+ 81778 multiletter control sequences out of 15000+600000
  600504 words of font info for 78 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  128i,18n,123p,1169b,1484s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2240,7 +2233,7 @@ ublic/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/s
 hare/texmf/fonts/type1/public/lm/lmsso10.pfb></usr/share/texmf/fonts/type1/publ
 ic/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/
 texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on b.pdf (19 pages, 215131 bytes).
+Output written on b.pdf (19 pages, 215236 bytes).
 PDF statistics:
  638 PDF objects out of 1000 (max. 8388607)
  543 compressed objects within 6 object streams
