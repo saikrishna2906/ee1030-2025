@@ -66,7 +66,7 @@
 \numberwithin{figure}{enumi}
 \renewcommand{\thetable}{\theenumi}
 
-\textbf{Question:}\\
+\textbf{Question:}\\    
 The trace of a square matrix is defined to be the sum of its diagonal entries. If $\vec{A}$ is a 2 x 2 matrix, such that the trace of $\vec{A}$ is 3 and the trace of $\vec{A}^{3}$ is -18, then the value of the determinant of $\vec{A}$ is\\
 \textbf{Solution:}\\
 Given:
@@ -75,41 +75,24 @@ Given:
     \operatorname{tr}(\vec{A^3})&=-18\\
     \operatorname{tr}(\vec{I})&=2
 \end{align}
-Using Cayley-Hamilton Theorem, we know that
+Let the eigenvalues of 2x2 matrix A be $\lambda_1$ and $\lambda_2$, we know that trace is the sum of eigenvalues.
 \begin{align}
-    \mydet{\vec{A}-\lambda\vec{I}}&=0,
-    \text{for $\lambda=\vec{A}$}		
-\end{align}
-For a 2 x 2 matrix $\vec{A}$, the characteristic equation is:
+\lambda_1 +\lambda_2 &=3
+\label{eq1}
+\end{align} 
+we are given that $\operatorname{tr}(\vec{A^3})&=-18$. Since the eigenvalues of $\vec{A}^3$ are $\lambda_1^3$ and $\lambda_2^3$, the trace of $\vec{A}^3$ is their sum.
 \begin{align}
-    \lambda^{2}-\operatorname{tr}(\vec{A})\lambda+\mydet{\vec{A}}&=0
+    \lambda_1^3 + \lambda_2^3 &=-18
+    \label{eq2}
 \end{align}
-According to the theorem, the matrix $\vec{A}$ itself will satisfy this equation:
+We can use the algebraic identity for the sum of cubes to connect our two equations $\eqref{eq1}$ and $\eqref{eq2}$.
 \begin{align}
-    \vec{A^2}-\operatorname{tr}(\vec{A})\vec{A}+\mydet{\vec{A}}\vec{I}&=0\\
-        \vec{A^2}-3\vec{A}+\mydet{\vec{A}}\vec{I}&=0\\
-        \vec{A^2}&=3\vec{A}-\mydet{\vec{A}}\vec{I}
+    \lambda_1^3 + \lambda_2^3 &=(\lambda_1+\lambda_2)((\lambda_1+\lambda_2)^2-3\lambda_1\lambda_2)
 \end{align}
-To find $\vec{A^3}$, we multiply the equation by $\vec{A}$
+Substituting the equations $\eqref{eq1}$ and $\eqref{eq2}$ in above equation, we get
 \begin{align}
-    % \vec{A^3}=\vec{A}\brak{3\vec{A}-\mydet{\vec{A}}\vec{I}}\\
-    \vec{A^3}=3\vec{A^2}-\mydet{\vec{A}}\vec{A}
+\lambda_1\lambda_2&=5
 \end{align}
-Now, substitute the expression for $\vec{A^2}$ into the equation for $\vec{A^3}$:
-\begin{align}
-\vec{A^3}=3\brak{3\vec{A}-\mydet{\vec{A}}\vec{I}}-\mydet{\vec{A}}\vec{A}\\
-\vec{A^3}=\brak{9-\mydet{\vec{A}}}\vec{A}-3\mydet{\vec{A}}\vec{I}
-\end{align}
-Let's take the trace of both sides of this equation. Using the linearity properties of the trace 
-\begin{align}
-    \operatorname{tr}(\vec{X}+\vec{Y})=\operatorname{tr}(\vec{X})+\operatorname{tr}(\vec{Y})\\
-    \operatorname{tr}(k\vec{X})=k\operatorname{tr}(\vec{X})\\
-    \operatorname{tr}(\vec{A^3})=\operatorname{tr}\brak{\brak{9-\mydet{\vec{A}}}\vec{A}-3\mydet{\vec{A}}\vec{I}}\\
-    \operatorname{tr}(\vec{A^3})=\brak{9-\mydet{\vec{A}}}\operatorname{tr}(\vec{A})-3\mydet{\vec{A}}\operatorname{tr}(\vec{I})
-\end{align}
-Substituting equations (0.1) and (0.2) in above equation, we get
-\begin{align}
-    -18=\brak{9-\mydet{\vec{A}}}(3)-3\mydet{\vec{A}}(2)\\
-    \therefore \mydet{\vec{A}}=5
-\end{align}
+But determinant of $\vec{A}$ is $\lambda_1\lambda_2$.\\
+Therefore, the value of the determinant of $\vec{A}$ is 5.
 \end{document}

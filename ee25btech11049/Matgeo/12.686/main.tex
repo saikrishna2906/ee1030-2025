@@ -1,0 +1,87 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.686}
+\author{EE25BTECH11049 - Sai Krishna Bakki}
+\maketitle
+\vspace{-3em}
+\textbf{Question:}\\
+$\vec{A}$, $\vec{B}$, $\vec{C}$ and $\vec{D}$ are vectors of length 4.
+
+ $\vec{A} = \myvec{ a_1 \\ a_2 \\ a_3 \\ a_4 }$,
+$\vec{B} = \myvec{b_1 \\ b_2 \\ b_3 \\ b_4}$,
+$\vec{C} = \myvec{ c_1 \\ c_2 \\ c_3 \\ c_4 }$,
+$\vec{D} = \myvec{d_1 \\ d_2 \\ d_3 \\ d_4 }$\\
+
+It is known that $\vec{B}$ is not a scalar multiple of $\vec{A}$. Also, $\vec{C}$ is linearly independent of $\vec{A}$ and $\vec{B}$. Further, $\vec{D} = 3\vec{A} + 2\vec{B} + \vec{C}$. The rank of the matrix
+$
+\myvec{
+a_1 & b_1 & c_1 & d_1 \\
+a_2 & b_2 & c_2 & d_2 \\
+a_3 & b_3 & c_3 & d_3 \\
+a_4 & b_4 & c_4 & d_4
+}
+$
+is  \\
+\solution\\
+The rank of the matrix is defined as the number of linearly independent columns or rows it contains. Let's analyze the linear independence of the columns of the given matrix, which are the vectors $\vec{A},\vec{B},\vec{C},\vec{D}$.\\
+Given:
+\begin{enumerate}
+    \item $\vec{A},\vec{B}$ are linearly independent
+    \item $\vec{A},\vec{B},\vec{C}$ are linearly independent
+    \item $\vec{D}=3\vec{A}+2\vec{B}+\vec{C}$ where $\vec{D}$ is linearly dependent on $\vec{A},\vec{B},\vec{C}$
+\end{enumerate}
+\begin{align}
+   \vec{D}=\myvec{3a_1+2b_1+c_1\\3a_2+2b_2+c_2\\3a_3+2b_3+c_3\\3a_4+2b_4+c_4}=\myvec{d_1\\d_2\\d_3\\d_4}\\
+    \vec{M}=\myvec{a_1 & b_1 & c_1 & d_1 \\
+a_2 & b_2 & c_2 & d_2 \\
+a_3 & b_3 & c_3 & d_3 \\
+a_4 & b_4 & c_4 & d_4}\\
+    \vec{M}=\myvec{a_1 & b_1 & c_1 & 3a_1+2b_1+c_1\\
+a_2 & b_2 & c_2 & 3a_2+2b_2+c_2 \\
+a_3 & b_3 & c_3 & 3a_3+2b_3+c_3 \\
+a_4 & b_4 & c_4 & 3a_4+2b_4+c_4}
+\end{align}
+There is one linearly dependent column so there are three linearly independent columns.\\
+$\therefore$ The rank of $\vec{M}$ is 3.
+\end{document}

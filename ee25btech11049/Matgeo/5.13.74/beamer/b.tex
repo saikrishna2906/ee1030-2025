@@ -22,8 +22,6 @@
 \usepackage{tcolorbox}
 \tcbuselibrary{minted,breakable,xparse,skins}
 
-
-
 \definecolor{bg}{gray}{0.95}
 \DeclareTCBListing{mintedbox}{O{}m!O{}}{%
   breakable=true,
@@ -88,77 +86,40 @@
 The trace of a square matrix is defined to be the sum of its diagonal entries. If $\vec{A}$ is a 2 x 2 matrix, such that the trace of $\vec{A}$ is 3 and the trace of $\vec{A}^{3}$ is -18, then the value of the determinant of $\vec{A}$ is
 \end{frame}
 \begin{frame}{Theoretical Solution}
-    Given:
+Given:
 \begin{align}
     \operatorname{tr}(\vec{A})&=3\\
-    \operatorname{tr}(\vec{A^3})&=-18\\
-    \operatorname{tr}(\vec{I})&=2
+    \operatorname{tr}(\vec{A^3})&=-18
 \end{align}
-Using Cayley-Hamilton Theorem, we know that
+Let the eigenvalues of 2x2 matrix A be $\lambda_1$ and $\lambda_2$, we know that trace is the sum of eigenvalues.
 \begin{align}
-    \mydet{\vec{A}-\lambda\vec{I}}&=0,
-    \text{for $\lambda=\vec{A}$}
-\end{align}
-For a 2 x 2 matrix $\vec{A}$, the characteristic equation is:
+\lambda_1 +\lambda_2 &=3
+\label{eq1}
+\end{align} 
+we are given that $\operatorname{tr}(\vec{A^3})&=-18$. Since the eigenvalues of $\vec{A}^3$ are $\lambda_1^3$ and $\lambda_2^3$, the trace of $\vec{A}^3$ is their sum.
 \begin{align}
-    \lambda^{2}-\operatorname{tr}(\vec{A})\lambda+\mydet{\vec{A}}&=0
+    \lambda_1^3 + \lambda_2^3 &=-18
+    \label{eq2}
 \end{align}
-According to the theorem, the matrix $\vec{A}$ itself will satisfy this equation:
-\begin{align}
-    \vec{A^2}-\operatorname{tr}(\vec{A})\vec{A}+\mydet{\vec{A}}\vec{I}&=0\\
-        \vec{A^2}-3\vec{A}+\mydet{\vec{A}}\vec{I}&=0\\
-        \vec{A^2}&=3\vec{A}-\mydet{\vec{A}}\vec{I}
-\end{align}
+We can use the algebraic identity for the sum of cubes to connect our two equations $\eqref{eq1}$ and $\eqref{eq2}$.
 \end{frame}
 \begin{frame}{Theoretical Solution}
-To find $\vec{A^3}$, we multiply the equation by $\vec{A}$
 \begin{align}
-    % \vec{A^3}=\vec{A}\brak{3\vec{A}-\mydet{\vec{A}}\vec{I}}\\
-    \vec{A^3}=3\vec{A^2}-\mydet{\vec{A}}\vec{A}
+    \lambda_1^3 + \lambda_2^3 &=(\lambda_1+\lambda_2)((\lambda_1+\lambda_2)^2-3\lambda_1\lambda_2)
 \end{align}
-Now, substitute the expression for $\vec{A^2}$ into the equation for $\vec{A^3}$:
+Substituting the equations $\eqref{eq1}$ and $\eqref{eq2}$ in above equation, we get
 \begin{align}
-\vec{A^3}=3\brak{3\vec{A}-\mydet{\vec{A}}\vec{I}}-\mydet{\vec{A}}\vec{A}\\
-\vec{A^3}=\brak{9-\mydet{\vec{A}}}\vec{A}-3\mydet{\vec{A}}\vec{I}
+\lambda_1\lambda_2&=5
 \end{align}
-Let's take the trace of both sides of this equation. Using the linearity properties of the trace 
-\begin{align}
-    \operatorname{tr}(\vec{X}+\vec{Y})=\operatorname{tr}(\vec{X})+\operatorname{tr}(\vec{Y})\\
-    \operatorname{tr}(k\vec{X})=k\operatorname{tr}(\vec{X})\\
-    \operatorname{tr}(\vec{A^3})=\operatorname{tr}\brak{\brak{9-\mydet{\vec{A}}}\vec{A}-3\mydet{\vec{A}}\vec{I}}\\
-    \operatorname{tr}(\vec{A^3})=\brak{9-\mydet{\vec{A}}}\operatorname{tr}(\vec{A})-3\mydet{\vec{A}}\operatorname{tr}(\vec{I})
-\end{align}
-\end{frame}
-\begin{frame}{Theoretical Solution}
-Substituting equations (0.1) and (0.2) in above equation, we get
-\begin{align}
-    -18=\brak{9-\mydet{\vec{A}}}(3)-3\mydet{\vec{A}}(2)\\
-    \therefore \mydet{\vec{A}}=5
-\end{align}
+But determinant of $\vec{A}$ is $\lambda_1\lambda_2$.\\
+Therefore, the value of the determinant of $\vec{A}$ is 5.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{C Code}
 \begin{lstlisting}
-    #include <math.h>
-
-/*
-    This function calculates the determinant of a 2x2 matrix given the
-    trace of the matrix (trace_A) and the trace of its cube (trace_A3).
-
-    The formula is derived from the relationship between the trace,
-    determinant, and eigenvalues of a matrix.
-
-    For Windows DLL compilation, __declspec(dllexport) is used to
-    export the function, making it visible to other programs. For
-    Linux/macOS, this is not strictly necessary when compiling with -fPIC.
-*/
+#include <math.h>
 #if defined(_WIN32)
     #define DLLEXPORT __declspec(dllexport)
-    \end{lstlisting}
-    \end{frame}
-    \begin{frame}[fragile]
-    \frametitle{C Code}
-    \begin{lstlisting}
 #else
     #define DLLEXPORT
 #endif
@@ -167,8 +128,7 @@ DLLEXPORT double solve_determinant_2x2(double trace_A, double trace_A3) {
     // Ensure we don't divide by zero if trace_A is 0.
     if (trace_A == 0) {
         return 0.0; // Or handle as an error, e.g., return NAN.
-    }
-    
+    } 
     // Formula: det(A) = (tr(A)^3 - tr(A^3)) / (3 * tr(A))
     return (pow(trace_A, 3) - trace_A3) / (3.0 * trace_A);
 }
@@ -177,7 +137,7 @@ DLLEXPORT double solve_determinant_2x2(double trace_A, double trace_A3) {
     \begin{frame}[fragile]
     \frametitle{Python Code Through Shared Output}
     \begin{lstlisting}
-    import ctypes
+import ctypes
 import os
 
 # Define the name of the shared library based on the operating system

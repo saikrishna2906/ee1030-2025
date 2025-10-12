@@ -1,0 +1,260 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{extarrows}
+\usepackage{amsmath}
+\usepackage{extarrows}
+\usepackage{amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath} 
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title %optional
+{12.686}
+\author 
+{EE25BTECH11049-Sai Krishna Bakki}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+ $\vec{A}$, $\vec{B}$, $\vec{C}$ and $\vec{D}$ are vectors of length 4.
+
+ $\vec{A} = \myvec{ a_1 \\ a_2 \\ a_3 \\ a_4 }$,
+$\vec{B} = \myvec{b_1 \\ b_2 \\ b_3 \\ b_4}$,
+$\vec{C} = \myvec{ c_1 \\ c_2 \\ c_3 \\ c_4 }$,
+$\vec{D} = \myvec{d_1 \\ d_2 \\ d_3 \\ d_4 }$\\
+
+It is known that $\vec{B}$ is not a scalar multiple of $\vec{A}$. Also, $\vec{C}$ is linearly independent of $\vec{A}$ and $\vec{B}$. Further, $\vec{D} = 3\vec{A} + 2\vec{B} + \vec{C}$. The rank of the matrix
+$
+\myvec{
+a_1 & b_1 & c_1 & d_1 \\
+a_2 & b_2 & c_2 & d_2 \\
+a_3 & b_3 & c_3 & d_3 \\
+a_4 & b_4 & c_4 & d_4
+}
+$
+is
+\end{frame}
+\begin{frame}{Theoretical Solution}
+    The rank of the matrix is defined as the number of linearly independent columns or rows it contains. Let's analyze the linear independence of the columns of the given matrix, which are the vectors $\vec{A},\vec{B},\vec{C},\vec{D}$.\\
+Given:
+\begin{enumerate}
+    \item $\vec{A},\vec{B}$ are linearly independent
+    \item $\vec{A},\vec{B},\vec{C}$ are linearly independent
+    \item $\vec{D}=3\vec{A}+2\vec{B}+\vec{C}$ where $\vec{D}$ is linearly dependent on $\vec{A},\vec{B},\vec{C}$
+\end{enumerate}
+\begin{align}
+   \vec{D}=\myvec{3a_1+2b_1+c_1\\3a_2+2b_2+c_2\\3a_3+2b_3+c_3\\3a_4+2b_4+c_4}=\myvec{d_1\\d_2\\d_3\\d_4}\\
+    \vec{M}=\myvec{a_1 & b_1 & c_1 & d_1 \\
+a_2 & b_2 & c_2 & d_2 \\
+a_3 & b_3 & c_3 & d_3 \\
+a_4 & b_4 & c_4 & d_4}\\
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+\begin{align}
+    \vec{M}=\myvec{a_1 & b_1 & c_1 & 3a_1+2b_1+c_1\\
+a_2 & b_2 & c_2 & 3a_2+2b_2+c_2 \\
+a_3 & b_3 & c_3 & 3a_3+2b_3+c_3 \\
+a_4 & b_4 & c_4 & 3a_4+2b_4+c_4}
+\end{align}
+There is one linearly dependent column so there are three linearly independent columns.\\
+$\therefore$ The rank of $\vec{M}$ is 3.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    #include <stdio.h>
+
+// Define the length of the vectors.
+#define VECTOR_LENGTH 4
+
+void calculate_D(const int* A, const int* B, const int* C, int* D) {
+    for (int i = 0; i < VECTOR_LENGTH; i++) {
+        D[i] = (3 * A[i]) + (2 * B[i]) + C[i];
+    }
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code Through Shared Output}
+\begin{lstlisting}
+import ctypes
+import random
+import os
+# Determine the library file name based on the OS
+lib_name = 'matrix_ops.so' if os.name != 'nt' else 'matrix_ops.dll'
+lib_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), lib_name)
+
+# 1. Load the shared library
+try:
+    c_lib = ctypes.CDLL(lib_path)
+except OSError as e:
+    print(f"Error loading shared library: {e}")
+    print("Please make sure you have compiled `matrix_ops.c` into a shared library.")
+    exit()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code Through Shared Output}
+\begin{lstlisting}
+# 2. Define the function signature (argument types and return type)
+# The function is: void calculate_D(int* A, int* B, int* C, int* D)
+# We need to specify that the arguments are pointers to integers.
+IntArray4 = ctypes.c_int * 4
+c_lib.calculate_D.argtypes = [
+    ctypes.POINTER(ctypes.c_int),
+    ctypes.POINTER(ctypes.c_int),
+    ctypes.POINTER(ctypes.c_int),
+    ctypes.POINTER(ctypes.c_int)
+]
+c_lib.calculate_D.restype = None  # The C function returns void
+
+# 3. Prepare the data in Python
+# Generate random vectors A, B, and C
+A_py = [random.randint(1, 10) for _ in range(4)]
+B_py = [random.randint(1, 10) for _ in range(4)]
+C_py = [random.randint(1, 10) for _ in range(4)]
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code Through Shared Output}
+\begin{lstlisting}
+# Convert Python lists to C-compatible integer arrays
+A_c = IntArray4(*A_py)
+B_c = IntArray4(*B_py)
+C_c = IntArray4(*C_py)
+
+# Create an empty C array to store the result D
+D_c = IntArray4()
+
+# 4. Call the C function
+c_lib.calculate_D(A_c, B_c, C_c, D_c)
+
+# 5. Convert the result back to a Python list to display it
+D_py = list(D_c)
+
+# Print the results
+print("--- Using C function from Python (ctypes) ---")
+print(f"Vector A: {A_py}")
+print(f"Vector B: {B_py}")
+print(f"Vector C: {C_py}")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code Through Shared Output}
+\begin{lstlisting}
+print(f"Result D (3*A + 2*B + C): {D_py}")
+
+# Verification
+D_verify = [(3 * a + 2 * b + c) for a, b, c in zip(A_py, B_py, C_py)]
+print(f"Verification in Python: {D_verify}")
+assert D_py == D_verify
+print("Result matches Python's calculation.")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+import numpy as np
+import numpy.linalg as LA
+
+# 1. Define three linearly independent vectors A, B, and C of length 4.
+#    A simple choice is to use vectors with a single non-zero element.
+A = np.array([[1], [0], [0], [0]])
+B = np.array([[0], [1], [0], [0]])
+C = np.array([[0], [0], [1], [0]])
+
+# 2. Define vector D as a linear combination of A, B, and C, as per the problem.
+#    D = 3A + 2B + C
+D = 3 * A + 2 * B + C
+
+# 3. Construct the matrix M by combining the vectors as columns.
+M = np.concatenate((A, B, C, D), axis=1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# 4. Calculate the rank of the matrix M.
+#    The rank is the maximum number of linearly independent columns.
+#    Since D is dependent on A, B, and C, the rank should be 3.
+rank_of_M = LA.matrix_rank(M)
+
+# Print the vectors, the resulting matrix, and its rank for verification.
+print("--- VECTORS ---")
+print("Vector A:\n", A)
+print("\nVector B:\n", B)
+print("\nVector C:\n", C)
+print("\nVector D = 3A + 2B + C:\n", D)
+print("\n--- MATRIX [A B C D] ---")
+print(M)
+print("\n--- RESULT ---")
+print(f"The rank of the matrix is: {rank_of_M}")
+\end{lstlisting}
+\end{frame}
+\end{document}
