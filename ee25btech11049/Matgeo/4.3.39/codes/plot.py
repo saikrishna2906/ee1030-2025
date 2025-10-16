@@ -5,8 +5,6 @@ from libs.funcs import line_norm # Import the required function
 # The value of 'a' we calculated
 a = 5/3
 
-# Line equation: 3y = (5/3)x + 7
-# Standard form: 5x - 9y + 21 = 0
 # This is in the form n.T @ x + k = 0
 # The normal vector n is [5, -9]
 # The constant term is 21, so n.T @ x = -21
